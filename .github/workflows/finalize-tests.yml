@@ -72,6 +72,10 @@ on:  # yamllint disable-line rule:truthy
         description: "Whether to use uv to build the image (true/false)"
         required: true
         type: string
+      debug-resources:
+        description: "Whether to debug resources or not (true/false)"
+        required: true
+        type: string
 jobs:
   update-constraints:
     runs-on: ${{ fromJSON(inputs.runs-on-as-json-public) }}
@@ -187,7 +191,7 @@ jobs:
           persist-credentials: false
       - name: "Cleanup docker"
         run: ./scripts/ci/cleanup_docker.sh
-      - name: Free up disk space
+      - name: "Free up disk space"
         shell: bash
         run: ./scripts/tools/free_up_disk_space.sh
       - name: "Download all test warning artifacts from the current build"
